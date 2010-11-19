@@ -1,21 +1,29 @@
+GIT
+  remote: git://github.com/ihoka/friendly.git
+  revision: 59a8171e0ddecfa00980e682bdb84f639115ad6e
+  ref: 59a8171
+  specs:
+    friendly (0.6.1)
+      activesupport (~> 2.3.5)
+      rufus-json (= 0.2.3)
+      sequel (>= 3.7.0)
+      will_paginate (~> 2.3.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
     activerecord (2.3.5)
       activesupport (= 2.3.5)
     activesupport (2.3.5)
+    database_cleaner (0.5.2)
     diff-lcs (1.1.2)
-    friendly (0.6.0)
-      activesupport (= 2.3.5)
-      rufus-json (= 0.2.3)
-      sequel (>= 3.7.0)
-      will_paginate
     git (1.2.5)
     jeweler (1.5.1)
       bundler (~> 1.0.0)
       git (>= 1.2.5)
       rake
     memcached (0.20.1)
+    mysql (2.8.1)
     rake (0.8.7)
     rcov (0.9.9)
     rspec (2.1.0)
@@ -29,6 +37,7 @@ GEM
     rufus-json (0.2.3)
     sequel (3.17.0)
     will_paginate (2.3.15)
+    yajl-ruby (0.7.8)
 
 PLATFORMS
   ruby
@@ -36,8 +45,11 @@ PLATFORMS
 DEPENDENCIES
   activerecord (~> 2.3.5)
   bundler (~> 1.0.0)
-  friendly (~> 0.6.0)
+  database_cleaner (~> 0.5.0)
+  friendly!
   jeweler (~> 1.5.1)
   memcached (~> 0.20.1)
+  mysql (~> 2.8.1)
   rcov
   rspec (~> 2.1.0)
+  yajl-ruby (~> 0.7.7)

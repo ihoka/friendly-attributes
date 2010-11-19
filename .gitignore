@@ -41,3 +41,4 @@ pkg
 # For vim:
 #*.swp
 spec/config.yml
+log/*.log

@@ -22,8 +22,12 @@ describe FriendlyAttributes::DetailsDelegator do
   
   let(:details_delegator) { FriendlyAttributes::DetailsDelegator.new(friendly_model, ar_model, &initializer) }
   let(:initializer)       { proc {} }
+  
   let(:friendly_model)    { Class.new }
   let(:ar_model)          { Class.new { include ActiveRecordFake } }
+  
+  let(:ar_instance)       { ar_model.new(:id => 42) }
+  let(:friendly_instance) { mock(friendly_model) }
   
   describe "initialization" do
     context "the Friendly model" do
@@ -56,9 +60,6 @@ describe FriendlyAttributes::DetailsDelegator do
       end
       
       context ".details" do
-        let(:ar_instance) { ar_model.new(:id => 42) }
-        let(:details)     { mock(friendly_model) }
-        
         before(:each) do
           details_delegator
         end
@@ -68,9 +69,9 @@ describe FriendlyAttributes::DetailsDelegator do
         end
         
         it "finds and memoizes the associated Friendly model" do
-          friendly_model.should_receive(:find_or_build_by_active_record_id).with(42).once.and_return(details)
-          ar_instance.details.should == details
-          ar_instance.details.should == details
+          friendly_model.should_receive(:find_or_build_by_active_record_id).with(ar_instance.id).once.and_return(friendly_instance)
+          ar_instance.details.should == friendly_instance
+          ar_instance.details.should == friendly_instance
         end
       end
     end
@@ -95,7 +96,42 @@ describe FriendlyAttributes::DetailsDelegator do
     end
   end
   
-  describe "#delegated_attribute" do
+  describe "#delegated_method" do
+    before(:each) do
+      details_delegator
+      details_delegator.delegated_method(:some_method)
+      ar_instance.stub(:details => friendly_instance)
+    end
     
+    it "delegates the method to Friendly model" do
+      bar = mock
+      friendly_instance.should_receive(:some_method).with(:foo).and_return(bar)
+      ar_instance.some_method(:foo).should == bar
+    end
+  end
+  
+  describe "#delegated_attribute" do
+    before(:each) do
+      details_delegator
+      details_delegator.delegated_attribute(:some_attribute, String)
+      ar_instance.stub(:details => friendly_instance)
+    end
+    
+    it "adds an attribute to the Friendly model" do
+      friendly_model.attributes.should include(:some_attribute)
+      friendly_model.attributes[:some_attribute].type.should == String
+    end
+    
+    it "delegates the reader to Friendly model" do
+      bar = mock
+      friendly_instance.should_receive(:some_attribute).and_return(bar)
+      ar_instance.some_attribute.should == bar
+    end
+    
+    it "delegates the writer to Friendly model" do
+      bar = mock
+      friendly_instance.should_receive(:some_attribute=).with(:value)
+      ar_instance.some_attribute = :value
+    end
   end
 end

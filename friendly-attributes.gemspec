@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
     "README.rdoc",
     "Rakefile",
     "VERSION",
+    "friendly-attributes.gemspec",
     "lib/friendly-attributes.rb",
     "lib/friendly_attributes.rb",
     "lib/friendly_attributes/class_methods.rb",

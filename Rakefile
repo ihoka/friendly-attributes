@@ -19,6 +19,8 @@ Jeweler::Tasks.new do |gem|
   gem.description = %Q{Pattern to add fields to ActiveRecord models, using an associated document, without needing schema migrations.}
   gem.email = "istvan.hoka@gmail.com"
   gem.authors = ["Istvan Hoka"]
+  gem.files = Dir['lib/**/*.rb'] + %w[CHANGELOG.md README.rdoc LICENSE.txt]
+  gem.test_files = []
   gem.add_runtime_dependency 'activerecord', '~> 2.3.5'
   gem.add_runtime_dependency 'friendly', '~> 0.6.0'
   gem.add_runtime_dependency 'yajl-ruby', '~> 0.7.7'

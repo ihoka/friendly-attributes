@@ -52,5 +52,6 @@ RSpec.configure do |config|
   DatabaseCleaner.clean_with(:truncation)
   
   config.extend DatabaseCleanerHelpers
+  config.include FriendlyAttributes::Test::Matchers
 end
 

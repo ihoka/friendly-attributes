@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{friendly-attributes}
-  s.version = "0.2.0"
+  s.version = "0.3.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Istvan Hoka"]
@@ -17,46 +17,21 @@ Gem::Specification.new do |s|
     "README.rdoc"
   ]
   s.files = [
-    ".document",
     "CHANGELOG.md",
-    "Gemfile",
-    "Gemfile.lock",
-    "LICENSE.txt",
     "README.rdoc",
-    "Rakefile",
-    "VERSION",
-    "friendly-attributes.gemspec",
     "lib/friendly-attributes.rb",
     "lib/friendly_attributes.rb",
     "lib/friendly_attributes/class_methods.rb",
     "lib/friendly_attributes/details.rb",
     "lib/friendly_attributes/details_delegator.rb",
     "lib/friendly_attributes/instance_methods.rb",
-    "spec/config.yml.example",
-    "spec/friendly_attributes/class_methods_spec.rb",
-    "spec/friendly_attributes/details_delegator_spec.rb",
-    "spec/friendly_attributes/details_spec.rb",
-    "spec/friendly_attributes/instance_methods_spec.rb",
-    "spec/friendly_attributes_spec.rb",
-    "spec/spec_helper.rb",
-    "spec/support/active_record_fake.rb",
-    "spec/support/database_cleaner_helpers.rb"
+    "lib/friendly_attributes/test/matchers.rb"
   ]
   s.homepage = %q{http://github.com/ihoka/friendly-attributes}
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{Extend ActiveRecord models using Friendly ORM delegate models}
-  s.test_files = [
-    "spec/friendly_attributes/class_methods_spec.rb",
-    "spec/friendly_attributes/details_delegator_spec.rb",
-    "spec/friendly_attributes/details_spec.rb",
-    "spec/friendly_attributes/instance_methods_spec.rb",
-    "spec/friendly_attributes_spec.rb",
-    "spec/spec_helper.rb",
-    "spec/support/active_record_fake.rb",
-    "spec/support/database_cleaner_helpers.rb"
-  ]
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION

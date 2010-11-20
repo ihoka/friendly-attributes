@@ -16,13 +16,17 @@ module FriendlyAttributes
       end
       
       ar_model.class_eval do
+        cattr_accessor :friendly_model
+        
         after_save :update_friendly_details
         after_destroy :destroy_friendly_details
-        
+                
         define_method(:details) do
           @details ||= friendly_model.find_or_build_by_active_record_id(id)
         end
       end
+      
+      ar_model.friendly_model = friendly_model
       
       self.instance_eval(&block) if block_given?
     end

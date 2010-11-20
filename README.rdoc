@@ -1,6 +1,8 @@
 = friendly-attributes
 
-Description goes here.
+Pattern to add fields to ActiveRecord models, using an associated document, without needing schema migrations.
+
+Uses http://friendlyorm.com/
 
 == Contributing to friendly-attributes
  

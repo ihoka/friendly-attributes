@@ -15,14 +15,21 @@ Jeweler::Tasks.new do |gem|
   gem.name = "friendly-attributes"
   gem.homepage = "http://github.com/ihoka/friendly-attributes"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Extend ActiveRecord models using Friendly ORM delegate models}
+  gem.description = %Q{Pattern to add fields to ActiveRecord models, using an associated document, without needing schema migrations.}
   gem.email = "istvan.hoka@gmail.com"
   gem.authors = ["Istvan Hoka"]
-  # Include your dependencies below. Runtime dependencies are required when using your gem,
-  # and development dependencies are only needed for development (ie running rake tasks, tests, etc)
-  #  gem.add_runtime_dependency 'jabber4r', '> 0.1'
-  #  gem.add_development_dependency 'rspec', '> 1.2.3'
+  gem.add_runtime_dependency 'activerecord', '~> 2.3.5'
+  gem.add_runtime_dependency 'friendly', '~> 0.6.0'
+  gem.add_runtime_dependency 'yajl-ruby', '~> 0.7.7'
+  gem.add_runtime_dependency 'memcached', '~> 0.20.1'
+  
+  gem.add_development_dependency 'mysql', '~> 2.8.1'
+  gem.add_development_dependency 'rspec', '~> 2.1.0'
+  gem.add_development_dependency 'bundler', '~> 1.0.0'
+  gem.add_development_dependency 'jeweler', '~> 1.5.1'
+  gem.add_development_dependency 'rcov', '>= 0'
+  gem.add_development_dependency 'database_cleaner', '~> 0.5.0'
 end
 Jeweler::RubygemsDotOrgTasks.new
 
@@ -33,8 +40,9 @@ RSpec::Core::RakeTask.new(:spec) do |spec|
 end
 
 RSpec::Core::RakeTask.new(:rcov) do |spec|
-  spec.pattern = 'spec/**/*_spec.rb'
+  spec.pattern = FileList['spec/**/*_spec.rb']
   spec.rcov = true
+  spec.rcov_opts = %w{-I spec:lib --exclude gems\/,spec\/}
 end
 
 task :default => :spec

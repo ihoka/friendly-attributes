@@ -41,7 +41,7 @@ RSpec.configure do |config|
   class ::User < ActiveRecord::Base
     include FriendlyAttributes
     
-    friendly_details UserDetails do
+    friendly_details(UserDetails, { Integer => [:birth_year, :shoe_size], Friendly::Boolean => :subscribed }) do
       delegated_attribute :name, String
     end
   end

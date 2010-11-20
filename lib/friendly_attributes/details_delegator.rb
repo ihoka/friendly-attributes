@@ -24,7 +24,7 @@ module FriendlyAttributes
         end
       end
       
-      self.instance_eval(&block)
+      self.instance_eval(&block) if block_given?
     end
     
     def delegated_attribute(name, klass)

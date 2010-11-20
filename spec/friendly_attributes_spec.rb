@@ -5,7 +5,7 @@ describe FriendlyAttributes do
   
   describe "creating" do
     context "with Friendly attributes" do
-      let(:user) { User.create(:name => "Stan", :email => "stan@example.com") }
+      let(:user) { User.create(:name => "Stan", :email => "stan@example.com", :birth_year => 1984, :shoe_size => 42, :subscribed => true) }
       
       it "creates an associated Details model with the AR model" do
         expect do
@@ -14,6 +14,9 @@ describe FriendlyAttributes do
         
         user_detail = user.details
         user_detail.name.should == "Stan"
+        user_detail.birth_year.should == 1984
+        user_detail.shoe_size.should == 42
+        user_detail.subscribed.should be_true
       end
     end
     

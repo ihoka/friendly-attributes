@@ -1,7 +1,22 @@
 module FriendlyAttributes
   module ClassMethods
-    def friendly_details(klass, &block)
-      DetailsDelegator.new(klass, self, &block)
+    def friendly_details(*args, &block)
+      klass = args.shift
+      options = args.extract_options!
+      
+      delegate_options = proc {
+        options.each do |key, value|
+          if Array === value
+            value.each { |v| delegated_attribute v, key }
+          else
+            delegated_attribute value, key
+          end
+        end
+      }
+      
+      DetailsDelegator.new(klass, self, &block).tap do |dd|
+        dd.instance_eval(&delegate_options)
+      end
     end
     
     def friendly_mount_uploader(name, klass)

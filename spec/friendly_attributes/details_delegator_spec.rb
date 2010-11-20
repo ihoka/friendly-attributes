@@ -11,68 +11,79 @@ describe FriendlyAttributes::DetailsDelegator do
   let(:friendly_instance) { mock(friendly_model) }
   
   describe "initialization" do
-    context "the Friendly model" do
-      before(:each) do
-        details_delegator
-      end
-      
-      it "includes Friendly::Document" do
-        friendly_model.ancestors.should include(Friendly::Document)
-      end
-
-      it "adds the active_record_id attribute" do
-        friendly_model.attributes.should include(:active_record_id)
-      end
-
-      it "adds an index to active_record_id" do
-        friendly_model.storage_proxy.index_for_fields([:active_record_id]).should be_an_instance_of(Friendly::Index)
-      end
-    end
-    
-    context "the ActiveRecord model" do
-      it "installs the update_friendly_details callback after_save" do
-        ar_model.should_receive(:after_save).with(:update_friendly_details)
-        details_delegator
-      end
-      
-      it "installs the destroy_friendly_details callback after_destroy" do
-        ar_model.should_receive(:after_destroy).with(:destroy_friendly_details)
-        details_delegator
-      end
-      
-      context ".details" do
+    shared_examples_for "DetailsDelegator initialization" do
+      context "the Friendly model" do
         before(:each) do
           details_delegator
         end
-        
-        it "is defined" do
-          ar_instance.should respond_to(:details)
+
+        it "includes Friendly::Document" do
+          friendly_model.ancestors.should include(Friendly::Document)
         end
-        
-        it "finds and memoizes the associated Friendly model" do
-          friendly_model.should_receive(:find_or_build_by_active_record_id).with(ar_instance.id).once.and_return(friendly_instance)
-          ar_instance.details.should == friendly_instance
-          ar_instance.details.should == friendly_instance
+
+        it "adds the active_record_id attribute" do
+          friendly_model.attributes.should include(:active_record_id)
+        end
+
+        it "adds an index to active_record_id" do
+          friendly_model.storage_proxy.index_for_fields([:active_record_id]).should be_an_instance_of(Friendly::Index)
+        end
+      end
+
+      context "the ActiveRecord model" do
+        it "installs the update_friendly_details callback after_save" do
+          ar_model.should_receive(:after_save).with(:update_friendly_details)
+          details_delegator
+        end
+
+        it "installs the destroy_friendly_details callback after_destroy" do
+          ar_model.should_receive(:after_destroy).with(:destroy_friendly_details)
+          details_delegator
+        end
+
+        context ".details" do
+          before(:each) do
+            details_delegator
+          end
+
+          it "is defined" do
+            ar_instance.should respond_to(:details)
+          end
+
+          it "finds and memoizes the associated Friendly model" do
+            friendly_model.should_receive(:find_or_build_by_active_record_id).with(ar_instance.id).once.and_return(friendly_instance)
+            ar_instance.details.should == friendly_instance
+            ar_instance.details.should == friendly_instance
+          end
         end
       end
     end
+    
+    context "missing initialization block" do
+      let(:details_delegator) { FriendlyAttributes::DetailsDelegator.new(friendly_model, ar_model) }
+      it_should_behave_like "DetailsDelegator initialization"
+    end
   
-    context "the initialization block" do
-      def yielded_inside(instance)
-        @yielded_instance = instance
-      end
+    context "with initialization block" do
+      it_should_behave_like "DetailsDelegator initialization"
       
-      let(:initializer) do
-        example = self
-        
-        proc {
-          example.yielded_inside(self)
-        }
-      end
-      
-      it "is instance evaled" do
-        details_delegator
-        @yielded_instance.should == details_delegator
+      context "the initialization block" do
+        def yielded_inside(instance)
+          @yielded_instance = instance
+        end
+
+        let(:initializer) do
+          example = self
+
+          proc {
+            example.yielded_inside(self)
+          }
+        end
+
+        it "is instance evaled" do
+          details_delegator
+          @yielded_instance.should == details_delegator
+        end
       end
     end
   end

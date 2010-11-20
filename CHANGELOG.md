@@ -1,6 +1,10 @@
 Changelog
 =========
 
+### 0.3.2
+  
+  * (ihoka) Added description to spec matcher.
+
 ### 0.3.1
   
   * (ihoka) added spec matchers

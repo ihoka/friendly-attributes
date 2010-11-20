@@ -9,11 +9,10 @@ module FriendlyAttributes
         end
         
         def matches?(actual)
-          @actual = actual
-          actual = Class === actual ? actual : actual.class
+          @actual = Class === actual ? actual : actual.class
           
-          result = actual.ancestors.include?(FriendlyAttributes) && @attributes.all? { |attr|
-            actual.friendly_model.attributes.include?(attr) && actual.friendly_model.attributes[attr].type == @type
+          result = @actual.ancestors.include?(FriendlyAttributes) && @attributes.all? { |attr|
+            @actual.friendly_model.attributes.include?(attr) && @actual.friendly_model.attributes[attr].type == @type
           }
         end
         
@@ -23,6 +22,10 @@ module FriendlyAttributes
         
         def negative_failure_message
           "expected #{@actual.inspect} not to have friendly attributes #{@attributes.inspect}"
+        end
+        
+        def description
+          "have [#{@actual}] friendly_attributes of type #{@type} => #{@attributes.inspect}"
         end
       end
       

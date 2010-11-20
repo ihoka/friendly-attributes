@@ -4,12 +4,10 @@ describe FriendlyAttributes do
   use_database_cleanup
   
   describe "definition" do
-    it "the User model should have friendly_attributes" do
-      User.should have_friendly_attributes(String, :name)
-      User.should have_friendly_attributes(Integer, :shoe_size, :birth_year)
-      User.should have_friendly_attributes(Friendly::Boolean, :subscribed)
-      User.should_not have_friendly_attributes(String, :foo)
-    end
+    it { User.should have_friendly_attributes(String, :name) }
+    it { User.new.should have_friendly_attributes(Integer, :shoe_size, :birth_year) }
+    it { User.new.should have_friendly_attributes(Friendly::Boolean, :subscribed) }
+    it { User.should_not have_friendly_attributes(String, :foo) }
   end
   
   describe "creating" do

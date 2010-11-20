@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     "CHANGELOG.md",
+    "LICENSE.txt",
     "README.rdoc",
     "lib/friendly-attributes.rb",
     "lib/friendly_attributes.rb",

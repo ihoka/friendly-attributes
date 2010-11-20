@@ -14,8 +14,7 @@ RSpec.configure do |config|
   yaml = YAML.load(File.read(File.dirname(__FILE__) + "/config.yml"))
   Friendly.configure yaml['test']
   
-  $db                          = Friendly.db
-  # Sequel::MySQL.default_engine = "InnoDB"
+  $db = Friendly.db
   
   %w[user_details index_user_details_on_active_record_id].each do |table|
     $db.drop_table(table) if $db.table_exists?(table)
@@ -32,7 +31,7 @@ RSpec.configure do |config|
   ActiveRecord::Base.establish_connection 'test'
   ActiveRecord::Schema.define do
     create_table :users, :force => true do |t|
-      t.string :name
+      t.string :email
     end
   end
       
@@ -43,7 +42,7 @@ RSpec.configure do |config|
     include FriendlyAttributes
     
     friendly_details UserDetails do
-      delegated_attribute :address1, String
+      delegated_attribute :name, String
     end
   end
   

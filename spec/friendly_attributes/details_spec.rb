@@ -24,4 +24,17 @@ describe FriendlyAttributes::Details do
       end
     end
   end
+  
+  describe "#attributes" do
+    let(:details) { UserDetails.create(attributes) }
+    let(:attributes) { { :name => "Foo", :birth_year => 1970, :shoe_size => 42, :subscribed => true, :active_record_id => 55 } }
+    
+    it "returns a hash of all the model's attributes" do
+      actual = details.attributes
+      actual.should include(attributes)
+      actual[:created_at].should be_an_instance_of(Time)
+      actual[:updated_at].should be_an_instance_of(Time)
+      actual[:id].should be_an_instance_of(Friendly::UUID)
+    end
+  end
 end

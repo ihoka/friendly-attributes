@@ -14,7 +14,7 @@ describe FriendlyAttributes::ClassMethods do
   class FakeUploader; end
   
   describe ".friendly_details" do
-    let(:options) do
+    let(:attributes) do
       {
         String  => :foo,
         Integer => [:bar, :baz]
@@ -27,22 +27,22 @@ describe FriendlyAttributes::ClassMethods do
     
     context "with an initializer block" do
       it "instantiates a new DetailsDelegator" do
-        FriendlyAttributes::DetailsDelegator.should_receive(:new).with(friendly_model, ar_model, &initializer).and_return(details_delegator)
+        FriendlyAttributes::DetailsDelegator.should_receive(:new).with(friendly_model, ar_model, {}, &initializer).and_return(details_delegator)
         ar_model.friendly_details(friendly_model, &initializer).should == details_delegator
       end
     end
     
-    context "with an initializer block and options" do
+    context "with an initializer block and attributes" do
       before(:each) do
         FriendlyAttributes::DetailsDelegator.stub(:new => details_delegator)
       end
       
       def do_details
-        ar_model.friendly_details(friendly_model, options, &initializer).should == details_delegator
+        ar_model.friendly_details(friendly_model, attributes, &initializer).should == details_delegator
       end
       
       it "instantiates a new DetailsDelegator" do
-        FriendlyAttributes::DetailsDelegator.should_receive(:new).with(friendly_model, ar_model, &initializer).and_return(details_delegator)
+        FriendlyAttributes::DetailsDelegator.should_receive(:new).with(friendly_model, ar_model, {}, &initializer).and_return(details_delegator)
         do_details
       end
       
@@ -54,10 +54,27 @@ describe FriendlyAttributes::ClassMethods do
       end
     end
     
+    context "with attributes and options" do
+      let(:options) { { :active_record_key => :user_id } }
+      
+      before(:each) do
+        FriendlyAttributes::DetailsDelegator.stub(:new => details_delegator)
+      end
+      
+      def do_details
+        ar_model.friendly_details(friendly_model, attributes, options).should == details_delegator
+      end
+      
+      it "instantiates a new DetailsDelegator" do
+        FriendlyAttributes::DetailsDelegator.should_receive(:new).with(friendly_model, ar_model, options, &initializer).and_return(details_delegator)
+        do_details
+      end
+    end
+    
     context "without a block" do
       it "instantiates a new DetailsDelegator" do
-        FriendlyAttributes::DetailsDelegator.should_receive(:new).with(friendly_model, ar_model).and_return(details_delegator)
-        ar_model.friendly_details(friendly_model, options).should == details_delegator
+        FriendlyAttributes::DetailsDelegator.should_receive(:new).with(friendly_model, ar_model, {}).and_return(details_delegator)
+        ar_model.friendly_details(friendly_model, attributes).should == details_delegator
       end
     end
   end

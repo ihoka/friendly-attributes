@@ -1,8 +1,9 @@
 require 'spec_helper'
 
 describe FriendlyAttributes::DetailsDelegator do
-  let(:details_delegator) { FriendlyAttributes::DetailsDelegator.new(friendly_model, ar_model, &initializer) }
+  let(:details_delegator) { FriendlyAttributes::DetailsDelegator.new(friendly_model, ar_model, options, &initializer) }
   let(:initializer)       { proc {} }
+  let(:options)           { {} }
   
   let(:friendly_model)    { Class.new }
   let(:ar_model)          { Class.new { include ActiveRecordFake } }
@@ -20,13 +21,35 @@ describe FriendlyAttributes::DetailsDelegator do
         it "includes Friendly::Document" do
           friendly_model.ancestors.should include(Friendly::Document)
         end
+        
+        context "with defaults" do
+          it "adds the active_record_id attribute" do
+            friendly_model.attributes.should include(:active_record_id)
+          end
 
-        it "adds the active_record_id attribute" do
-          friendly_model.attributes.should include(:active_record_id)
+          it "adds an index to active_record_id" do
+            friendly_model.storage_proxy.index_for_fields([:active_record_id]).should be_an_instance_of(Friendly::Index)
+          end
+          
+          it "sets the active_record_key" do
+            friendly_model.active_record_key.should == :active_record_id
+          end
         end
+        
+        context "with options" do
+          let(:options) { { :active_record_key => :user_id } }
+          
+          it "adds the active_record_id attribute" do
+            friendly_model.attributes.should include(:user_id)
+          end
 
-        it "adds an index to active_record_id" do
-          friendly_model.storage_proxy.index_for_fields([:active_record_id]).should be_an_instance_of(Friendly::Index)
+          it "adds an index to active_record_id" do
+            friendly_model.storage_proxy.index_for_fields([:user_id]).should be_an_instance_of(Friendly::Index)
+          end
+          
+          it "sets the active_record_key" do
+            friendly_model.active_record_key.should == :user_id
+          end
         end
       end
 
@@ -60,7 +83,7 @@ describe FriendlyAttributes::DetailsDelegator do
     end
     
     context "missing initialization block" do
-      let(:details_delegator) { FriendlyAttributes::DetailsDelegator.new(friendly_model, ar_model) }
+      let(:details_delegator) { FriendlyAttributes::DetailsDelegator.new(friendly_model, ar_model, options) }
       it_should_behave_like "DetailsDelegator initialization"
     end
   

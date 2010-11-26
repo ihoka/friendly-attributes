@@ -9,7 +9,7 @@ describe FriendlyAttributes do
     it { User.new.should have_friendly_attributes(Friendly::Boolean, :subscribed) }
     it { User.should_not have_friendly_attributes(String, :foo) }
   end
-  
+    
   describe "creating" do
     context "with Friendly attributes" do
       let(:user) { User.create(:name => "Stan", :email => "stan@example.com", :birth_year => 1984, :shoe_size => 42, :subscribed => true) }

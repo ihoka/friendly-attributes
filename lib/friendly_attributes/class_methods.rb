@@ -3,9 +3,14 @@ module FriendlyAttributes
     def friendly_details(*args, &block)
       klass = args.shift
       options = args.extract_options!
+      attributes = args.extract_options!
+      if attributes.empty?
+        attributes = options
+        options = {}
+      end
       
       delegate_options = proc {
-        options.each do |key, value|
+        attributes.each do |key, value|
           if Array === value
             value.each { |v| delegated_attribute v, key }
           else
@@ -14,7 +19,7 @@ module FriendlyAttributes
         end
       }
       
-      DetailsDelegator.new(klass, self, &block).tap do |dd|
+      DetailsDelegator.new(klass, self, options, &block).tap do |dd|
         dd.instance_eval(&delegate_options)
       end
     end

@@ -14,7 +14,7 @@ module FriendlyAttributes
 
     def update_friendly_details
       return unless details_present?
-      details.active_record_id = id unless details.active_record_id == id
+      details.send(:"#{details.active_record_key}=", id) unless details.send(details.active_record_key) == id
       details.save if details.changed?
     end
 

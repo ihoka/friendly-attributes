@@ -8,7 +8,7 @@ describe FriendlyAttributes::InstanceMethods do
       include FriendlyAttributes::InstanceMethods
     }
   }
-  let(:details) { mock("details") }
+  let(:details) { mock("details", :active_record_key => :active_record_id) }
   
   describe "#read_friendly_attribute" do
     it "reads the attribute from details" do

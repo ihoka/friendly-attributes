@@ -1,6 +1,10 @@
 Changelog
 =========
 
+### 0.4.0
+  
+  * (ihoka) Added #attributes method to FriendlyAttributes::Details base class.
+
 ### 0.3.2
   
   * (ihoka) Added description to spec matcher.

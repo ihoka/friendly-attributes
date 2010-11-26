@@ -4,16 +4,21 @@ module FriendlyAttributes
     
     delegate :attribute, :indexes, :to => :friendly_model
     
-    def initialize(friendly_model, ar_model, &block)
+    def initialize(friendly_model, ar_model, options={}, &block)
       @ar_model       = ar_model
       @friendly_model = friendly_model
       
+      _active_record_key = options.delete(:active_record_key) || :active_record_id
+      
       friendly_model.instance_eval do
         include Friendly::Document
-      
-        attribute :active_record_id, Integer
-        indexes :active_record_id
+        
+        attribute _active_record_key, Integer
+        indexes _active_record_key
+        
+        cattr_accessor :active_record_key
       end
+      friendly_model.active_record_key = _active_record_key
       
       ar_model.class_eval do
         cattr_accessor :friendly_model

@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{friendly-attributes}
-  s.version = "0.4.0"
+  s.version = "0.5.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Istvan Hoka"]
-  s.date = %q{2010-11-25}
+  s.date = %q{2010-11-26}
   s.description = %q{Pattern to add fields to ActiveRecord models, using an associated document, without needing schema migrations.}
   s.email = %q{istvan.hoka@gmail.com}
   s.extra_rdoc_files = [

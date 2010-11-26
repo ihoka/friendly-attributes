@@ -1,6 +1,10 @@
 Changelog
 =========
 
+### 0.5.0
+  
+  * (ihoka) Added configurable active_record_key to the FriendlyDetails model. active_record_key affects the name of the generated Friendly index table and the attribute in which the ActiveRecord model ID is stored. It defaults to :active_record_id.
+
 ### 0.4.0
   
   * (ihoka) Added #attributes method to FriendlyAttributes::Details base class.

@@ -21,5 +21,9 @@ module FriendlyAttributes
     def destroy_friendly_details
       details.destroy
     end
+    
+    def friendly_details_build_options
+      {}
+    end
   end
 end

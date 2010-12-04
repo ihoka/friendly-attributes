@@ -65,6 +65,8 @@ describe FriendlyAttributes::DetailsDelegator do
         end
 
         context ".details" do
+          let(:build_defaults) { mock(Hash) }
+          
           before(:each) do
             details_delegator
           end
@@ -73,8 +75,9 @@ describe FriendlyAttributes::DetailsDelegator do
             ar_instance.should respond_to(:details)
           end
 
-          it "finds and memoizes the associated Friendly model" do
-            friendly_model.should_receive(:find_or_build_by_active_record_id).with(ar_instance.id).once.and_return(friendly_instance)
+          it "finds or builds and memoizes the associated Friendly model" do
+            ar_instance.should_receive(:friendly_details_build_options).and_return(build_defaults)
+            friendly_model.should_receive(:find_or_build_by_active_record_id).with(ar_instance.id, build_defaults).once.and_return(friendly_instance)
             ar_instance.details.should == friendly_instance
             ar_instance.details.should == friendly_instance
           end

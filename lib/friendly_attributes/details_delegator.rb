@@ -27,7 +27,7 @@ module FriendlyAttributes
         after_destroy :destroy_friendly_details
                 
         define_method(:details) do
-          @details ||= friendly_model.find_or_build_by_active_record_id(id)
+          @details ||= friendly_model.find_or_build_by_active_record_id(id, friendly_details_build_options)
         end
       end
       

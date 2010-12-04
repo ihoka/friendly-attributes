@@ -44,6 +44,12 @@ RSpec.configure do |config|
     friendly_details(UserDetails, { Integer => [:birth_year, :shoe_size], Friendly::Boolean => :subscribed }, { :active_record_key => :user_id }) do
       delegated_attribute :name, String
     end
+    
+    def friendly_details_build_options
+      {
+        :shoe_size => 42
+      }
+    end
   end
   
   Friendly::Document.create_tables!

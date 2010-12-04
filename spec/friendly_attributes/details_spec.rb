@@ -13,10 +13,18 @@ describe FriendlyAttributes::Details do
     }
     
     context "when the record does not exist" do
-      it "builds a new record with the active_record_id" do
+      before(:each) do
         friendly_model.should_receive(:first).with(:ar_id => 42).and_return(nil)
+      end
+      
+      it "builds a new record with the active_record_id" do
         friendly_model.should_receive(:new).with(:ar_id => 42).and_return(details)
         friendly_model.find_or_build_by_active_record_id(42).should == details
+      end
+      
+      it "with options present, it builds a new record with the options and active_record_id" do
+        friendly_model.should_receive(:new).with(:ar_id => 42, :foo => "foo").and_return(details)
+        friendly_model.find_or_build_by_active_record_id(42, :foo => "foo").should == details
       end
     end
     

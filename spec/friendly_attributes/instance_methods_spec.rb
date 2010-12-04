@@ -110,4 +110,30 @@ describe FriendlyAttributes::InstanceMethods do
       object.destroy_friendly_details
     end
   end
+
+  describe "#friendly_details_build_options" do
+    context "when friendly_details_build_options is not defined" do
+      it "returns and empty Hash" do
+        object.friendly_details_build_options.should == { }
+      end
+    end
+    
+    context "when friendly_details_build_options is defined" do
+      let(:foo) { mock("default friendly details build option") }
+      
+      before(:each) do
+        _foo = foo
+        
+        klass.class_eval do
+          define_method(:friendly_details_build_options) do
+            { :foo => _foo }
+          end
+        end
+      end
+      
+      it "returns the options specified by friendly_details_build_options" do
+        object.friendly_details_build_options.should == { :foo => foo }
+      end
+    end
+  end
 end

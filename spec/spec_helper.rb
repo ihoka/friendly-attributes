@@ -30,8 +30,12 @@ RSpec.configure do |config|
   ActiveRecord::Base.configurations = yaml
   ActiveRecord::Base.establish_connection 'test'
   ActiveRecord::Schema.define do
+    create_table :parents, :force => true do |t|
+    end
+    
     create_table :users, :force => true do |t|
       t.string :email
+      t.references :parent
     end
   end
       
@@ -39,6 +43,8 @@ RSpec.configure do |config|
   end
   
   class ::User < ActiveRecord::Base
+    belongs_to :parent
+    
     include FriendlyAttributes
     
     friendly_details(UserDetails, { Integer => [:birth_year, :shoe_size], Friendly::Boolean => :subscribed }, { :active_record_key => :user_id }) do
@@ -50,6 +56,12 @@ RSpec.configure do |config|
         :shoe_size => 42
       }
     end
+  end
+  
+  class ::Parent < ActiveRecord::Base
+    has_one :user
+    
+    accepts_nested_attributes_for :user
   end
   
   Friendly::Document.create_tables!

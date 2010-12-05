@@ -64,6 +64,34 @@ describe FriendlyAttributes do
         user.name.should == "Eric"
       end
     end
+    
+    context "with nested attributes" do
+      let(:user) { User.create(:name => "Stan Marsh", :email => "smarsh@example.com") }
+      let(:parent) { Parent.create(:user => user) }
+      
+      before(:each) do
+        parent
+        parent.update_attributes(:user_attributes => user_attributes)
+        user.reload
+      end
+      
+      context "when only changing Friendly attributes" do
+        let(:user_attributes) { { :id => user.id, :name => "Eric Cartman" } }
+        
+        it "updates Friendly attributes through nested association" do
+          user.name.should == "Eric Cartman"
+        end
+      end
+      
+      context "when changing both Friendly attributes and ActiveRecord attributes" do
+        let(:user_attributes) { { :id => user.id, :name => "Eric Cartman", :email => "eric@example.com" } }
+        
+        it "updates Friendly attributes through nested association" do
+          user.email.should == "eric@example.com"
+          user.name.should == "Eric Cartman"
+        end
+      end
+    end
   end
   
   describe "destroying" do

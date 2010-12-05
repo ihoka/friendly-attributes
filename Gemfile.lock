@@ -29,7 +29,7 @@ GEM
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.1.0)
     rufus-json (0.2.3)
-    sequel (3.17.0)
+    sequel (3.18.0)
     will_paginate (2.3.15)
     yajl-ruby (0.7.8)
 

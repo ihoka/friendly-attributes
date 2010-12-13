@@ -59,9 +59,9 @@ RSpec.configure do |config|
   end
   
   class ::Parent < ActiveRecord::Base
-    has_one :user
+    has_many :users
     
-    accepts_nested_attributes_for :user
+    accepts_nested_attributes_for :users
   end
   
   Friendly::Document.create_tables!

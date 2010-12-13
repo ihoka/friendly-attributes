@@ -67,16 +67,16 @@ describe FriendlyAttributes do
     
     context "with nested attributes" do
       let(:user) { User.create(:name => "Stan Marsh", :email => "smarsh@example.com") }
-      let(:parent) { Parent.create(:user => user) }
+      let(:parent) { Parent.create(:users => [user]) }
       
       before(:each) do
         parent
-        parent.update_attributes(:user_attributes => user_attributes)
+        parent.update_attributes(:users_attributes => users_attributes)
         user.reload
       end
       
       context "when only changing Friendly attributes" do
-        let(:user_attributes) { { :id => user.id, :name => "Eric Cartman" } }
+        let(:users_attributes) { { "0" => { "id" => user.id, "name" => "Eric Cartman" } } }
         
         it "updates Friendly attributes through nested association" do
           user.name.should == "Eric Cartman"
@@ -84,7 +84,7 @@ describe FriendlyAttributes do
       end
       
       context "when changing both Friendly attributes and ActiveRecord attributes" do
-        let(:user_attributes) { { :id => user.id, :name => "Eric Cartman", :email => "eric@example.com" } }
+        let(:users_attributes) { { "0" => { "id" => user.id, "name" => "Eric Cartman", "email" => "eric@example.com" } } }
         
         it "updates Friendly attributes through nested association" do
           user.email.should == "eric@example.com"

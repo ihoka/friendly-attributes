@@ -136,4 +136,41 @@ describe FriendlyAttributes::InstanceMethods do
       end
     end
   end
+
+  describe "#changed?" do
+    subject { active_record.changed? }
+    let(:active_record) { User.create(:name => "Stan", :email => "stan@example.com") }
+    
+    context "when the ActiveRecord model has changed," do
+      before(:each) do
+        active_record.email = "eric@example.com"
+      end
+      
+      context "and the Friendly model has changed," do
+        before(:each) do
+          active_record.name = "Eric"
+        end
+        
+        it { should be_true }
+      end
+      
+      context "and the Friendly model has not changed" do
+        it { should be_true }
+      end
+    end
+    
+    context "when the ActiveRecord model has not changed," do
+      context "and the Friendly model has changed" do
+        before(:each) do
+          active_record.name = "Eric"
+        end
+        
+        it { should be_true }
+      end
+      
+      context "and the Friendly model has not changed" do
+        it { should be_false }
+      end
+    end
+  end
 end

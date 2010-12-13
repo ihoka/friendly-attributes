@@ -64,7 +64,7 @@ describe FriendlyAttributes::DetailsDelegator do
           details_delegator
         end
 
-        context ".details" do
+        describe "#details" do
           let(:build_defaults) { mock(Hash) }
           
           before(:each) do

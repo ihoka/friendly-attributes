@@ -1,6 +1,9 @@
 Changelog
 =========
 
+### 0.6.1
+  * (ihoka) Extended #changed? on the ActiveRecord model to indicate the record has been changed if the associated Friendly has changed.
+
 ### 0.6.0
   * (ihoka) Added #friendly_details_build_options method to the ActiveRecord model, allowing to specify default attributes when initially building the Friendly model.
 

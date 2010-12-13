@@ -25,5 +25,9 @@ module FriendlyAttributes
     def friendly_details_build_options
       {}
     end
+    
+    def changed?
+      super || (details_present? && details.changed?)
+    end
   end
 end

@@ -1,5 +1,12 @@
 module FriendlyAttributes
   module ClassMethods
+    # Configure a Friendly Details model associated with an ActiveRecord model.
+    # 
+    # @return [nil]
+    #
+    # === Usage
+    # 
+    # 
     def friendly_details(*args, &block)
       klass = args.shift
       options = args.extract_options!

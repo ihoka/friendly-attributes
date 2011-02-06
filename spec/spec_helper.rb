@@ -16,14 +16,13 @@ RSpec.configure do |config|
   
   $db = Friendly.db
   
-  %w[user_details index_user_details_on_user_id].each do |table|
+  %w[user_details user_second_details index_user_details_on_user_id].each do |table|
     $db.drop_table(table) if $db.table_exists?(table)
   end
   
-  datastore                    = Friendly::DataStore.new($db)
-  Friendly.datastore           = datastore
-  $cache                       = Memcached.new
-  Friendly.cache               = Friendly::Memcached.new($cache)
+  Friendly.datastore = Friendly::DataStore.new($db)
+  $cache             = Memcached.new
+  Friendly.cache     = Friendly::Memcached.new($cache)
   
   ActiveRecord::Base.logger = Friendly.db.logger = Logger.new(File.dirname(__FILE__) + "/../log/test.log")
   
@@ -42,6 +41,9 @@ RSpec.configure do |config|
   class ::UserDetails < FriendlyAttributes::Details
   end
   
+  class ::UserSecondDetails < FriendlyAttributes::Details
+  end
+  
   class ::User < ActiveRecord::Base
     belongs_to :parent
     
@@ -50,6 +52,8 @@ RSpec.configure do |config|
     friendly_details(UserDetails, { Integer => [:birth_year, :shoe_size], Friendly::Boolean => :subscribed }, { :active_record_key => :user_id }) do
       delegated_attribute :name, String
     end
+    
+    friendly_details(UserSecondDetails, Integer => :second_int)
     
     def friendly_details_build_options
       {

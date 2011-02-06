@@ -5,14 +5,18 @@ module FriendlyAttributes
         def initialize(example, type, *attributes)
           @example    = example
           @type       = type
+          @options    = attributes.extract_options!
+          @through    = @options[:through]
           @attributes = attributes
         end
         
         def matches?(actual)
           @actual = Class === actual ? actual : actual.class
           
+          friendly_model = @actual.send(FriendlyAttributes::DetailsDelegator.friendly_model_name(@through))
+          
           result = @actual.ancestors.include?(FriendlyAttributes) && @attributes.all? { |attr|
-            @actual.friendly_model.attributes.include?(attr) && @actual.friendly_model.attributes[attr].type == @type
+            friendly_model.attributes.include?(attr) && friendly_model.attributes[attr].type == @type
           }
         end
         
@@ -29,6 +33,14 @@ module FriendlyAttributes
         end
       end
       
+      # RSpec matcher for checking Friendly attributes.
+      # Passes if the model has the specified FriendlyAttributes associated with it.
+      #
+      # Example:
+      #     it { should have_friendly_attributes(String, :ssn, :work_email, :through => UserDetails)        }
+      #     it { should have_friendly_attributes(Friendly::Boolean, :is_active, :through => CompanyDetails) }
+      #
+      # @return [HaveFriendlyAttribute] matcher
       def have_friendly_attributes(*args)
         HaveFriendlyAttribute.new(self, *args)
       end

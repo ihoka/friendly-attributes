@@ -4,15 +4,15 @@ describe FriendlyAttributes do
   use_database_cleanup
   
   describe "definition" do
-    it { User.should have_friendly_attributes(String, :name) }
-    it { User.new.should have_friendly_attributes(Integer, :shoe_size, :birth_year) }
-    it { User.new.should have_friendly_attributes(Friendly::Boolean, :subscribed) }
-    it { User.should_not have_friendly_attributes(String, :foo) }
+    it { User.should have_friendly_attributes(String, :name, :through => UserDetails) }
+    it { User.new.should have_friendly_attributes(Integer, :shoe_size, :birth_year, :through => UserDetails) }
+    it { User.new.should have_friendly_attributes(Friendly::Boolean, :subscribed, :through => UserDetails) }
+    it { User.should_not have_friendly_attributes(String, :foo, :through => UserDetails) }
   end
     
   describe "creating" do
     context "with Friendly attributes" do
-      let(:user) { User.create(:name => "Stan", :email => "stan@example.com", :birth_year => 1984, :subscribed => true) }
+      let(:user) { User.create!(:name => "Stan", :email => "stan@example.com", :birth_year => 1984, :subscribed => true) }
       
       it "creates an associated Details model with the AR model" do
         expect do

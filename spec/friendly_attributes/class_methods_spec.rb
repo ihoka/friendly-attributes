@@ -1,14 +1,14 @@
 require 'spec_helper'
 
 describe FriendlyAttributes::ClassMethods do
-  let(:friendly_model)    { Class.new }
+  let(:friendly_model)    { mock_friendly_model }
   let(:ar_model)          {
     Class.new {
       include ActiveRecordFake
       extend FriendlyAttributes::ClassMethods
     }
   }
-  let(:initializer)       { proc {} }
+  
   let(:details_delegator) { mock(FriendlyAttributes::DetailsDelegator) }
   
   class FakeUploader; end
@@ -22,35 +22,30 @@ describe FriendlyAttributes::ClassMethods do
     end
     
     before(:each) do
-      details_delegator.stub(:delegated_attribute)
+      details_delegator.stub(:setup_delegated_attributes)
     end
     
     context "with an initializer block" do
-      it "instantiates a new DetailsDelegator" do
-        FriendlyAttributes::DetailsDelegator.should_receive(:new).with(friendly_model, ar_model, {}, &initializer).and_return(details_delegator)
-        ar_model.friendly_details(friendly_model, &initializer).should == details_delegator
+      def yielded_inside(instance)
+        @yielded_instance = instance
       end
-    end
-    
-    context "with an initializer block and attributes" do
-      before(:each) do
-        FriendlyAttributes::DetailsDelegator.stub(:new => details_delegator)
+
+      let(:initializer) do
+        example = self
+
+        proc {
+          example.yielded_inside(self)
+        }
       end
       
-      def do_details
+      it "instance_evals the initializer block on the DetailsDelegator instance" do
+        FriendlyAttributes::DetailsDelegator.
+          should_receive(:new).
+          with(friendly_model, ar_model, attributes, {}).
+          and_return(details_delegator)
+        
         ar_model.friendly_details(friendly_model, attributes, &initializer).should == details_delegator
-      end
-      
-      it "instantiates a new DetailsDelegator" do
-        FriendlyAttributes::DetailsDelegator.should_receive(:new).with(friendly_model, ar_model, {}, &initializer).and_return(details_delegator)
-        do_details
-      end
-      
-      it "delegates the attributes passed in the options" do
-        details_delegator.should_receive(:delegated_attribute).with(:foo, String)
-        details_delegator.should_receive(:delegated_attribute).with(:bar, Integer)
-        details_delegator.should_receive(:delegated_attribute).with(:baz, Integer)
-        do_details
+        @yielded_instance.should == details_delegator
       end
     end
     
@@ -66,14 +61,19 @@ describe FriendlyAttributes::ClassMethods do
       end
       
       it "instantiates a new DetailsDelegator" do
-        FriendlyAttributes::DetailsDelegator.should_receive(:new).with(friendly_model, ar_model, options, &initializer).and_return(details_delegator)
+        FriendlyAttributes::DetailsDelegator.should_receive(:new).with(friendly_model, ar_model, attributes, options).and_return(details_delegator)
+        do_details
+      end
+      
+      it "sets up the delegated attributes" do
+        details_delegator.should_receive(:setup_delegated_attributes)
         do_details
       end
     end
     
     context "without a block" do
       it "instantiates a new DetailsDelegator" do
-        FriendlyAttributes::DetailsDelegator.should_receive(:new).with(friendly_model, ar_model, {}).and_return(details_delegator)
+        FriendlyAttributes::DetailsDelegator.should_receive(:new).with(friendly_model, ar_model, attributes, {}).and_return(details_delegator)
         ar_model.friendly_details(friendly_model, attributes).should == details_delegator
       end
     end

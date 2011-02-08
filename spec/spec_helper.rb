@@ -38,10 +38,10 @@ RSpec.configure do |config|
     end
   end
       
-  class ::UserDetails < FriendlyAttributes::Details
+  class ::UserDetails < FriendlyAttributes::Base
   end
   
-  class ::UserSecondDetails < FriendlyAttributes::Details
+  class ::UserSecondDetails < FriendlyAttributes::Base
   end
   
   class ::User < ActiveRecord::Base

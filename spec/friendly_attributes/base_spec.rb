@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-describe FriendlyAttributes::Details do
+describe FriendlyAttributes::Base do
   use_database_cleanup
   
-  let(:details) { mock(FriendlyAttributes::Details) }
+  let(:details) { mock(FriendlyAttributes::Base) }
   
   describe ".find_or_build_by_active_record_id" do
     let(:friendly_model) {
-      Class.new(FriendlyAttributes::Details) do
+      Class.new(FriendlyAttributes::Base) do
         cattr_accessor :active_record_key
       end.tap { |c| c.active_record_key = :ar_id }
     }

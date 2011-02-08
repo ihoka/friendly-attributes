@@ -7,7 +7,7 @@ module ActiveRecordFake
     (class << base; self; end).class_eval do
       def after_save(*args); end
       def after_destroy(*args); end
-    end
+    end    
   end
   
   def initialize(attributes={})

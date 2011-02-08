@@ -1,6 +1,6 @@
 module FriendlyAttributes
   module ClassMethods
-    # Configure a Friendly Details model associated with an ActiveRecord model.
+    # Configure a Friendly Base model associated with an ActiveRecord model.
     # 
     # @return [nil]
     #
@@ -16,18 +16,9 @@ module FriendlyAttributes
         options = {}
       end
       
-      delegate_options = proc {
-        attributes.each do |key, value|
-          if Array === value
-            value.each { |v| delegated_attribute v, key }
-          else
-            delegated_attribute value, key
-          end
-        end
-      }
-      
-      DetailsDelegator.new(klass, self, options, &block).tap do |dd|
-        dd.instance_eval(&delegate_options)
+      DetailsDelegator.new(klass, self, attributes, options, &block).tap do |dd|
+        dd.setup_delegated_attributes
+        dd.instance_eval(&block) if block_given?
       end
     end
     

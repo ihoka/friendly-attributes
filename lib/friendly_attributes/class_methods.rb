@@ -2,11 +2,14 @@ module FriendlyAttributes
   module ClassMethods
     # Configure a Friendly Base model associated with an ActiveRecord model.
     # 
-    # @return [nil]
-    #
-    # === Usage
+    # @overload friendly_details(klass, attributes)
+    #   @param [Class] klass FriendlyAttributes::Base instance used to extend the ActiveRecord model
+    #   @param [Hash] attributes hash of types and attributes names with which to extend the ActiveRecord, through FriendlyAttributes::Base
     # 
+    # @overload friendly_details(klass, attributes, options)
+    #   @param [Hash] options configuration options for extending the FriendlyAttributes extension (see {DetailsDelegator#initialize})
     # 
+    # @return [DetailsDelegator]
     def friendly_details(*args, &block)
       klass = args.shift
       options = args.extract_options!

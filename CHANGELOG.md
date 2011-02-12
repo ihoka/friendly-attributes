@@ -1,6 +1,10 @@
 Changelog
 =========
 
+### 0.7.0
+  * (ihoka) Support for associating multiple FriendlyAttributes models with a single ActiveRecord model
+  * (ihoka) Documentation
+
 ### 0.6.1
   * (ihoka) Extended #changed? on the ActiveRecord model to indicate the record has been changed if the associated Friendly has changed.
 

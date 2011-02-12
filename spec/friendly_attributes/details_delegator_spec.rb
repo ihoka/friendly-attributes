@@ -121,7 +121,7 @@ describe FriendlyAttributes::DetailsDelegator do
           end
 
           it "finds or builds and memoizes the associated Friendly model" do
-            ar_instance.should_receive(:find_or_build_and_memoize_details).with(DetailsDelegator.friendly_model_name(friendly_model))
+            ar_instance.should_receive(:find_or_build_and_memoize_details).with(friendly_model)
             ar_instance.send(DetailsDelegator.friendly_model_reader(friendly_model))
           end
         end

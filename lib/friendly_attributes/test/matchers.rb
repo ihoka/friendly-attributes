@@ -13,10 +13,8 @@ module FriendlyAttributes
         def matches?(actual)
           @actual = Class === actual ? actual : actual.class
           
-          friendly_model = @actual.send(FriendlyAttributes::DetailsDelegator.friendly_model_name(@through))
-          
           result = @actual.ancestors.include?(FriendlyAttributes) && @attributes.all? { |attr|
-            friendly_model.attributes.include?(attr) && friendly_model.attributes[attr].type == @type
+            @through.attributes.include?(attr) && @through.attributes[attr].type == @type
           }
         end
         
@@ -36,7 +34,7 @@ module FriendlyAttributes
       # RSpec matcher for checking Friendly attributes.
       # Passes if the model has the specified FriendlyAttributes associated with it.
       #
-      # Example:
+      # @example Using the matcher
       #     it { should have_friendly_attributes(String, :ssn, :work_email, :through => UserDetails)        }
       #     it { should have_friendly_attributes(Friendly::Boolean, :is_active, :through => CompanyDetails) }
       #

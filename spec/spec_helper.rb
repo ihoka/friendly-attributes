@@ -56,8 +56,8 @@ RSpec.configure do |config|
     friendly_details(UserSecondDetails, Integer => :second_int)
     
     def friendly_details_build_options(friendly_model)
-      case friendly_model
-      when UserDetails: { :shoe_size => 42 }
+      if UserDetails == friendly_model
+        { :shoe_size => 42 }
       else
         {}
       end

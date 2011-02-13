@@ -1,7 +1,8 @@
 source 'http://rubygems.org'
 
 gem 'activerecord', '~> 2.3.5'
-gem 'friendly', '~> 0.6.0'
+# gem 'friendly', '~> 0.6.0'
+gem 'friendly', :git => 'git://github.com/ihoka/friendly.git', :ref => '861ae897'
 gem 'yajl-ruby', '~> 0.7.7'
 gem 'memcached', '~> 0.20.1'
 gem 'ruby-debug', :require => false
@@ -13,4 +14,8 @@ group :development do
   gem 'jeweler', '~> 1.5.1'
   gem 'rcov', '>= 0'
   gem 'database_cleaner', '~> 0.5.0'
+  gem 'autotest'
+  gem 'autotest-fsevent'
+  gem 'autotest-growl'
+  gem 'syntax'
 end

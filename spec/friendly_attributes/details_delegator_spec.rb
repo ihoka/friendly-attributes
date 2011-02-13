@@ -40,7 +40,6 @@ describe FriendlyAttributes::DetailsDelegator do
         
         its(:active_record_model) { should == ar_model }
         its(:friendly_model)      { should == friendly_model }
-        its(:friendly_model_name) { should == DetailsDelegator.friendly_model_name(friendly_model) }
         its(:attributes)          { should == attributes }        
       end
       
@@ -101,13 +100,13 @@ describe FriendlyAttributes::DetailsDelegator do
       end
 
       context "the ActiveRecord model" do
-        it "installs the update_friendly_details callback after_save" do
-          ar_model.should_receive(:after_save).with(:update_friendly_details)
+        it "installs the update_friendly_models callback after_save" do
+          ar_model.should_receive(:after_save).with(:update_friendly_models)
           details_delegator
         end
 
-        it "installs the destroy_friendly_details callback after_destroy" do
-          ar_model.should_receive(:after_destroy).with(:destroy_friendly_details)
+        it "installs the destroy_friendly_models callback after_destroy" do
+          ar_model.should_receive(:after_destroy).with(:destroy_friendly_models)
           details_delegator
         end
 

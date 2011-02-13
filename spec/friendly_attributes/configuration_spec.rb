@@ -43,13 +43,32 @@ describe FriendlyAttributes::Configuration do
   end
   
   describe "Configuration with delegators added" do
-    let(:friendly_models) { [UserDetails, UserSecondDetails] }
-    let(:details_delegators) { friendly_models.map { |fm| mock(FriendlyAttributes::DetailsDelegator, :friendly_model => fm, :delegated_attributes => delegated_attributes) } }
-    let(:delegated_attributes) { { :foo => Integer, :bar => String } }
+    let(:friendly_models)      { [UserDetails, UserSecondDetails] }
+    let(:delegated_attributes) {
+      {
+        UserDetails => { :foo => Integer, :bar => String },
+        UserSecondDetails => { :baz => Date }
+      }
+    }
+    let(:details_delegators) {
+      friendly_models.map do |fm|
+        mock(FriendlyAttributes::DetailsDelegator,
+          :friendly_model => fm,
+          :delegated_attributes => delegated_attributes[fm])
+      end
+    }
     
     before(:each) do
       details_delegators.each do |delegator|
         configuration.add(delegator)
+      end
+    end
+    
+    describe "#model_for_attribute" do
+      it "returns the FriendlyAttributes model associated with the attribute" do
+        configuration.model_for_attribute(:foo).should == UserDetails
+        configuration.model_for_attribute(:bar).should == UserDetails
+        configuration.model_for_attribute(:baz).should == UserSecondDetails
       end
     end
     

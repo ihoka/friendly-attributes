@@ -1,6 +1,12 @@
 module FriendlyAttributes
   class Base
     class << self
+      # Finds an existing Friendly model, associated with an ActiveRecord model,
+      # or builds a new Friendly model, using the specified options.
+      # 
+      # @param [Integer] ActiveRecord model ID for which to find the associated Friendly model
+      # @param [Hash] options
+      # @return [FriendlyAttributes::Base] found or new record
       def find_or_build_by_active_record_id(active_record_id, options={})
         active_record_id && first(active_record_key => active_record_id) || new(options.merge(active_record_key => active_record_id))
       end

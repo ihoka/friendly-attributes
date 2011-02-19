@@ -40,10 +40,38 @@ module FriendlyAttributes
       all_friendly_instances.map(&:destroy).all?
     end
     
+    # Hook provided in order to customize the defaults for building Friendly model instances associated with a certain model.
+    # Redefine the method on the FriendlyAttributes::Base subclass to customize.
+    #
+    # Defaults to an empty Hash.
+    #
+    # @example We want to specify build options for the UserDetails instances, but not for UserSecondDetails
+    #   class User < ActiveRecord::Base
+    #     include FriendlyAttributes
+    #   
+    #     friendly_details(UserDetails, Integer => :shoe_size)
+    #     friendly_details(UserSecondDetails, Integer => :second_int)
+    #   
+    #     def friendly_details_build_options(friendly_model)
+    #       if UserDetails == friendly_model
+    #         { :shoe_size => 42 }
+    #       else
+    #         {}
+    #       end
+    #     end
+    #   end
+    # 
+    # @param [Class] friendly_model FriendlyAttributes::Base subclass for which the build options should be returned
+    # @return [Hash] default attributes to be used when building the associated friendly_model
     def friendly_details_build_options(friendly_model = nil)
       {}
     end
-
+    
+    # Finds or builds the Friendly instance associated through friendly_model. Result is memoized in an instance variable.
+    # @see FriendlyAttributes::Base.find_or_build_by_active_record_id
+    # @see FriendlyAttributes::DetailsDelegator.friendly_model_ivar
+    #
+    # @param [Class] friendly_model FriendlyAttributes::Base subclass
     def find_or_build_and_memoize_details(friendly_model)
       friendly_model_ivar = DetailsDelegator.friendly_model_ivar(friendly_model)
       

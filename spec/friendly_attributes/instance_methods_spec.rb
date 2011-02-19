@@ -210,4 +210,31 @@ describe FriendlyAttributes::InstanceMethods do
       end
     end
   end
+
+  describe "#find_or_build_and_memoize_details" do
+    let(:user) { @user }
+    let(:build_options) { mock(Hash) }
+    let(:user_details) { double(UserDetails) }
+    
+    before(:each) do
+      @user = User.find(User.create(:name => "Stan", :email => "stan@example.com").id)
+    end
+    
+    it "finds (or builds a new instance with build options) and memoizes the associated Friendly instance" do
+      user.
+        should_receive(:friendly_details_build_options).
+        with(UserDetails).
+        once.
+        and_return(build_options)
+      
+      UserDetails.
+        should_receive(:find_or_build_by_active_record_id).
+        with(user.id, build_options).
+        once.
+        and_return(user_details)
+      
+      user.find_or_build_and_memoize_details(UserDetails).should == user_details
+      user.find_or_build_and_memoize_details(UserDetails).should == user_details
+    end
+  end
 end

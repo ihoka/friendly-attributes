@@ -20,25 +20,12 @@ describe FriendlyAttributes::Configuration do
       configuration.add(delegator)
       configuration.details_delegators.should == [delegator]
     end
-    
-    it "merges the delegator's attributes into the attributes hash" do
-      configuration.add(delegator)
-      
-      configuration.attributes.should == {
-        :foo => UserDetails,
-        :bar => UserDetails
-      }
-      
-      another_delegator = mock(FriendlyAttributes::DetailsDelegator,
-        :delegated_attributes => { :baz => Date },
-        :friendly_model => UserSecondDetails)
-      
-      configuration.add(another_delegator)
-      configuration.attributes.should == {
-        :foo => UserDetails,
-        :bar => UserDetails,
-        :baz => UserSecondDetails
-      }
+  end
+  
+  describe "#add_attribute" do
+    it "adds the attribute to the attributes collection" do
+      configuration.add_attribute(:foo, UserDetails)
+      configuration.attributes.should == { :foo => UserDetails }
     end
   end
   
@@ -66,9 +53,8 @@ describe FriendlyAttributes::Configuration do
     
     describe "#model_for_attribute" do
       it "returns the FriendlyAttributes model associated with the attribute" do
+        configuration.add_attribute(:foo, UserDetails)
         configuration.model_for_attribute(:foo).should == UserDetails
-        configuration.model_for_attribute(:bar).should == UserDetails
-        configuration.model_for_attribute(:baz).should == UserSecondDetails
       end
     end
     

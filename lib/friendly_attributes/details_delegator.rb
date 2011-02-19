@@ -58,6 +58,8 @@ module FriendlyAttributes
       attribute name, klass
       delegated_method(:"#{name}")
       delegated_method(:"#{name}=")
+      
+      active_record_model.friendly_attributes_configuration.add_attribute(name, friendly_model)
     end
     
     def delegated_method(name)

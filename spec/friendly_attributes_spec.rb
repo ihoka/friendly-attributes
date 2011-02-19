@@ -68,6 +68,19 @@ describe FriendlyAttributes do
     end
   end
   
+  describe "reading" do
+    let(:user) { User.create!(:name => "Stan", :email => "stan@example.com", :birth_year => 1984, :subscribed => true) }
+    
+    it "through the attr_reader" do
+      user.name.should == "Stan"
+    end
+    
+    it "through read_friendly_attribute" do
+      user.read_friendly_attribute(:name).should == "Stan"
+      user.read_friendly_attribute(:birth_year).should == 1984
+    end
+  end
+  
   describe "updating" do
     context "with Friendly attributes" do
       let(:user) { User.create(:name => "Stan", :email => "stan@example.com", :second_int => 200) }

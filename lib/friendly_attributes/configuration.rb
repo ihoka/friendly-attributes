@@ -10,9 +10,10 @@ module FriendlyAttributes
     
     def add(delegator)
       details_delegators << delegator
-      delegator.delegated_attributes.each do |name, _|
-        attributes[name] = delegator.friendly_model
-      end
+    end
+    
+    def add_attribute(name, friendly_model)
+      attributes[name] = friendly_model
     end
     
     def model_for_attribute(attr)

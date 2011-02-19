@@ -202,5 +202,9 @@ describe FriendlyAttributes::DetailsDelegator do
       friendly_instance.should_receive(:some_attribute=).with(:value)
       ar_instance.some_attribute = :value
     end
+  
+    it "adds the attribute to the configuration" do
+      ar_instance.friendly_attributes_configuration.attributes.should == { :some_attribute => friendly_model }
+    end
   end
 end

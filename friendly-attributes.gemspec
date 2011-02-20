@@ -5,25 +5,25 @@
 
 Gem::Specification.new do |s|
   s.name = %q{friendly-attributes}
-  s.version = "0.6.1"
+  s.version = "0.7.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Istvan Hoka"]
-  s.date = %q{2010-12-13}
+  s.date = %q{2011-02-20}
   s.description = %q{Pattern to add fields to ActiveRecord models, using an associated document, without needing schema migrations.}
   s.email = %q{istvan.hoka@gmail.com}
   s.extra_rdoc_files = [
     "LICENSE.txt",
-    "README.rdoc"
+    "README.md"
   ]
   s.files = [
     "CHANGELOG.md",
     "LICENSE.txt",
-    "README.rdoc",
     "lib/friendly-attributes.rb",
     "lib/friendly_attributes.rb",
+    "lib/friendly_attributes/base.rb",
     "lib/friendly_attributes/class_methods.rb",
-    "lib/friendly_attributes/details.rb",
+    "lib/friendly_attributes/configuration.rb",
     "lib/friendly_attributes/details_delegator.rb",
     "lib/friendly_attributes/instance_methods.rb",
     "lib/friendly_attributes/test/matchers.rb"
@@ -31,24 +31,28 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/ihoka/friendly-attributes}
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.7}
+  s.rubygems_version = %q{1.5.0}
   s.summary = %q{Extend ActiveRecord models using Friendly ORM delegate models}
 
   if s.respond_to? :specification_version then
-    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<activerecord>, ["~> 2.3.5"])
-      s.add_runtime_dependency(%q<friendly>, ["~> 0.6.0"])
+      s.add_runtime_dependency(%q<friendly>, [">= 0"])
       s.add_runtime_dependency(%q<yajl-ruby>, ["~> 0.7.7"])
       s.add_runtime_dependency(%q<memcached>, ["~> 0.20.1"])
+      s.add_runtime_dependency(%q<ruby-debug>, [">= 0"])
       s.add_development_dependency(%q<mysql>, ["~> 2.8.1"])
-      s.add_development_dependency(%q<rspec>, ["~> 2.1.0"])
+      s.add_development_dependency(%q<rspec>, ["~> 2.5.0"])
       s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.5.1"])
       s.add_development_dependency(%q<rcov>, [">= 0"])
       s.add_development_dependency(%q<database_cleaner>, ["~> 0.5.0"])
+      s.add_development_dependency(%q<autotest>, [">= 0"])
+      s.add_development_dependency(%q<autotest-fsevent>, [">= 0"])
+      s.add_development_dependency(%q<autotest-growl>, [">= 0"])
+      s.add_development_dependency(%q<syntax>, [">= 0"])
       s.add_runtime_dependency(%q<activerecord>, ["~> 2.3.5"])
       s.add_runtime_dependency(%q<friendly>, ["~> 0.6.0"])
       s.add_runtime_dependency(%q<yajl-ruby>, ["~> 0.7.7"])
@@ -61,15 +65,20 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<database_cleaner>, ["~> 0.5.0"])
     else
       s.add_dependency(%q<activerecord>, ["~> 2.3.5"])
-      s.add_dependency(%q<friendly>, ["~> 0.6.0"])
+      s.add_dependency(%q<friendly>, [">= 0"])
       s.add_dependency(%q<yajl-ruby>, ["~> 0.7.7"])
       s.add_dependency(%q<memcached>, ["~> 0.20.1"])
+      s.add_dependency(%q<ruby-debug>, [">= 0"])
       s.add_dependency(%q<mysql>, ["~> 2.8.1"])
-      s.add_dependency(%q<rspec>, ["~> 2.1.0"])
+      s.add_dependency(%q<rspec>, ["~> 2.5.0"])
       s.add_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_dependency(%q<jeweler>, ["~> 1.5.1"])
       s.add_dependency(%q<rcov>, [">= 0"])
       s.add_dependency(%q<database_cleaner>, ["~> 0.5.0"])
+      s.add_dependency(%q<autotest>, [">= 0"])
+      s.add_dependency(%q<autotest-fsevent>, [">= 0"])
+      s.add_dependency(%q<autotest-growl>, [">= 0"])
+      s.add_dependency(%q<syntax>, [">= 0"])
       s.add_dependency(%q<activerecord>, ["~> 2.3.5"])
       s.add_dependency(%q<friendly>, ["~> 0.6.0"])
       s.add_dependency(%q<yajl-ruby>, ["~> 0.7.7"])
@@ -83,15 +92,20 @@ Gem::Specification.new do |s|
     end
   else
     s.add_dependency(%q<activerecord>, ["~> 2.3.5"])
-    s.add_dependency(%q<friendly>, ["~> 0.6.0"])
+    s.add_dependency(%q<friendly>, [">= 0"])
     s.add_dependency(%q<yajl-ruby>, ["~> 0.7.7"])
     s.add_dependency(%q<memcached>, ["~> 0.20.1"])
+    s.add_dependency(%q<ruby-debug>, [">= 0"])
     s.add_dependency(%q<mysql>, ["~> 2.8.1"])
-    s.add_dependency(%q<rspec>, ["~> 2.1.0"])
+    s.add_dependency(%q<rspec>, ["~> 2.5.0"])
     s.add_dependency(%q<bundler>, ["~> 1.0.0"])
     s.add_dependency(%q<jeweler>, ["~> 1.5.1"])
     s.add_dependency(%q<rcov>, [">= 0"])
     s.add_dependency(%q<database_cleaner>, ["~> 0.5.0"])
+    s.add_dependency(%q<autotest>, [">= 0"])
+    s.add_dependency(%q<autotest-fsevent>, [">= 0"])
+    s.add_dependency(%q<autotest-growl>, [">= 0"])
+    s.add_dependency(%q<syntax>, [">= 0"])
     s.add_dependency(%q<activerecord>, ["~> 2.3.5"])
     s.add_dependency(%q<friendly>, ["~> 0.6.0"])
     s.add_dependency(%q<yajl-ruby>, ["~> 0.7.7"])

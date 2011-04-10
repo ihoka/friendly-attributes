@@ -22,7 +22,6 @@ Jeweler::Tasks.new do |gem|
   gem.files = Dir['lib/**/*.rb'] + %w[CHANGELOG.md README.rdoc LICENSE.txt]
   gem.test_files = []
   gem.add_runtime_dependency 'activerecord', '~> 2.3.5'
-  gem.add_runtime_dependency 'ihoka-friendly', '~> 0.6.2'
   gem.add_runtime_dependency 'yajl-ruby', '~> 0.7.7'
   gem.add_runtime_dependency 'memcached', '~> 0.20.1'
   

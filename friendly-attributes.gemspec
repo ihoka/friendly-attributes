@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{friendly-attributes}
-  s.version = "0.7.0"
+  s.version = "0.7.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Istvan Hoka"]
-  s.date = %q{2011-02-20}
+  s.date = %q{2011-04-10}
   s.description = %q{Pattern to add fields to ActiveRecord models, using an associated document, without needing schema migrations.}
   s.email = %q{istvan.hoka@gmail.com}
   s.extra_rdoc_files = [
@@ -31,7 +31,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/ihoka/friendly-attributes}
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.5.0}
+  s.rubygems_version = %q{1.6.2}
   s.summary = %q{Extend ActiveRecord models using Friendly ORM delegate models}
 
   if s.respond_to? :specification_version then
@@ -39,7 +39,7 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<activerecord>, ["~> 2.3.5"])
-      s.add_runtime_dependency(%q<friendly>, [">= 0"])
+      s.add_runtime_dependency(%q<ihoka-friendly>, ["~> 0.6.2"])
       s.add_runtime_dependency(%q<yajl-ruby>, ["~> 0.7.7"])
       s.add_runtime_dependency(%q<memcached>, ["~> 0.20.1"])
       s.add_runtime_dependency(%q<ruby-debug>, [">= 0"])
@@ -54,7 +54,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<autotest-growl>, [">= 0"])
       s.add_development_dependency(%q<syntax>, [">= 0"])
       s.add_runtime_dependency(%q<activerecord>, ["~> 2.3.5"])
-      s.add_runtime_dependency(%q<friendly>, ["~> 0.6.0"])
+      s.add_runtime_dependency(%q<ihoka-friendly>, ["~> 0.6.2"])
       s.add_runtime_dependency(%q<yajl-ruby>, ["~> 0.7.7"])
       s.add_runtime_dependency(%q<memcached>, ["~> 0.20.1"])
       s.add_development_dependency(%q<mysql>, ["~> 2.8.1"])
@@ -65,7 +65,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<database_cleaner>, ["~> 0.5.0"])
     else
       s.add_dependency(%q<activerecord>, ["~> 2.3.5"])
-      s.add_dependency(%q<friendly>, [">= 0"])
+      s.add_dependency(%q<ihoka-friendly>, ["~> 0.6.2"])
       s.add_dependency(%q<yajl-ruby>, ["~> 0.7.7"])
       s.add_dependency(%q<memcached>, ["~> 0.20.1"])
       s.add_dependency(%q<ruby-debug>, [">= 0"])
@@ -80,7 +80,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<autotest-growl>, [">= 0"])
       s.add_dependency(%q<syntax>, [">= 0"])
       s.add_dependency(%q<activerecord>, ["~> 2.3.5"])
-      s.add_dependency(%q<friendly>, ["~> 0.6.0"])
+      s.add_dependency(%q<ihoka-friendly>, ["~> 0.6.2"])
       s.add_dependency(%q<yajl-ruby>, ["~> 0.7.7"])
       s.add_dependency(%q<memcached>, ["~> 0.20.1"])
       s.add_dependency(%q<mysql>, ["~> 2.8.1"])
@@ -92,7 +92,7 @@ Gem::Specification.new do |s|
     end
   else
     s.add_dependency(%q<activerecord>, ["~> 2.3.5"])
-    s.add_dependency(%q<friendly>, [">= 0"])
+    s.add_dependency(%q<ihoka-friendly>, ["~> 0.6.2"])
     s.add_dependency(%q<yajl-ruby>, ["~> 0.7.7"])
     s.add_dependency(%q<memcached>, ["~> 0.20.1"])
     s.add_dependency(%q<ruby-debug>, [">= 0"])
@@ -107,7 +107,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<autotest-growl>, [">= 0"])
     s.add_dependency(%q<syntax>, [">= 0"])
     s.add_dependency(%q<activerecord>, ["~> 2.3.5"])
-    s.add_dependency(%q<friendly>, ["~> 0.6.0"])
+    s.add_dependency(%q<ihoka-friendly>, ["~> 0.6.2"])
     s.add_dependency(%q<yajl-ruby>, ["~> 0.7.7"])
     s.add_dependency(%q<memcached>, ["~> 0.20.1"])
     s.add_dependency(%q<mysql>, ["~> 2.8.1"])

@@ -1,8 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'activerecord', '~> 2.3.5'
-# gem 'friendly', '~> 0.6.0'
-gem 'friendly', :git => 'git://github.com/ihoka/friendly.git', :ref => '861ae897'
+gem 'ihoka-friendly', '~> 0.6.2'
 gem 'yajl-ruby', '~> 0.7.7'
 gem 'memcached', '~> 0.20.1'
 gem 'ruby-debug', :require => false

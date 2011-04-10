@@ -1,6 +1,9 @@
 Changelog
 =========
 
+### 0.7.1
+  * (ihoka) updated dependency for Friendly to ihoka-friendly
+
 ### 0.7.0
   * (ihoka,cristi) Support for associating multiple FriendlyAttributes models with a single ActiveRecord model
   * (ihoka,cristi) FriendlyAttributes::Details renamed to FriendlyAttributes::Base

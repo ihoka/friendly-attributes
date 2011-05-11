@@ -21,16 +21,18 @@ Jeweler::Tasks.new do |gem|
   gem.authors = ["Istvan Hoka"]
   gem.files = Dir['lib/**/*.rb'] + %w[CHANGELOG.md README.rdoc LICENSE.txt]
   gem.test_files = []
-  gem.add_runtime_dependency 'activerecord', '~> 2.3.5'
-  gem.add_runtime_dependency 'yajl-ruby', '~> 0.7.7'
-  gem.add_runtime_dependency 'memcached', '~> 0.20.1'
   
-  gem.add_development_dependency 'mysql', '~> 2.8.1'
-  gem.add_development_dependency 'rspec', '~> 2.1.0'
-  gem.add_development_dependency 'bundler', '~> 1.0.0'
-  gem.add_development_dependency 'jeweler', '~> 1.5.1'
-  gem.add_development_dependency 'rcov', '>= 0'
-  gem.add_development_dependency 'database_cleaner', '~> 0.5.0'
+  ## It seems like Jeweler is merging in the Gemfile. Skipping these for now.
+  # gem.add_runtime_dependency 'activerecord', '~> 2.3.5'
+  # gem.add_runtime_dependency 'yajl-ruby', '~> 0.7.7'
+  # gem.add_runtime_dependency 'memcached', '~> 0.20.1'
+  # 
+  # gem.add_development_dependency 'mysql', '~> 2.8.1'
+  # gem.add_development_dependency 'rspec', '~> 2.1.0'
+  # gem.add_development_dependency 'bundler', '~> 1.0.0'
+  # gem.add_development_dependency 'jeweler', '~> 1.5.1'
+  # gem.add_development_dependency 'rcov', '>= 0'
+  # gem.add_development_dependency 'database_cleaner', '~> 0.5.0'
 end
 Jeweler::RubygemsDotOrgTasks.new
 

@@ -1,0 +1,6 @@
+language: ruby
+rvm:
+  - 1.9.3
+before_script:
+  - mysql -e 'create database friendly_attributes_test;'
+  - cp spec/config.sample.yml spec/config.yml

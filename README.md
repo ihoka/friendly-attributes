@@ -1,5 +1,8 @@
 # Friendly Attributes
 
+[![Build Status](https://travis-ci.org/ihoka/friendly-attributes.png)](https://travis-ci.org/ihoka/friendly-attributes)
+
+
 Extend your ActiveRecord models with attributes dynamically, without any schema migrations.
 
 ## Description

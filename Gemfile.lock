@@ -22,6 +22,7 @@ GEM
       will_paginate (~> 2.3.15)
     memcached (0.20.1)
     mysql (2.8.1)
+    rake (10.1.0)
     rspec (2.5.0)
       rspec-core (~> 2.5.0)
       rspec-expectations (~> 2.5.0)
@@ -42,4 +43,5 @@ DEPENDENCIES
   database_cleaner (~> 0.5.0)
   friendly-attributes!
   mysql (~> 2.8.1)
+  rake
   rspec (~> 2.5.0)

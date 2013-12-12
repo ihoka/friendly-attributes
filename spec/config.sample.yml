@@ -1,6 +1,6 @@
 test:
   :adapter:  "mysql"
   :host:     "localhost"
-  :user:     "root"
+  :username: "root"
   :password:
   :database: "friendly_attributes_test"

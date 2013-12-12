@@ -15,6 +15,7 @@ RSpec.configure do |config|
   Friendly.configure yaml['test']
   
   $db = Friendly.db
+  DatabaseCleaner.orm = :sequel
   
   %w[user_details user_second_details index_user_details_on_user_id].each do |table|
     $db.drop_table(table) if $db.table_exists?(table)

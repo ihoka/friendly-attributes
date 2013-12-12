@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |s|
   s.name = %q{friendly-attributes}
-  s.version = "0.7.1.1"
+  s.version = "0.7.3"
 
   s.authors     = ["Istvan Hoka"]
   s.date        = %q{2011-04-10}
@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'ihoka-friendly', '~> 0.7.0'
   s.add_dependency 'activerecord', '~> 2.3.18'
   s.add_dependency 'yajl-ruby', '~> 0.7.7'
-  s.add_dependency 'memcached', '~> 0.20.1'
+  s.add_dependency 'memcached', '~> 1.7.2'
   
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- spec/*`.split("\n")

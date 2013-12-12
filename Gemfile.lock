@@ -1,10 +1,10 @@
 PATH
   remote: .
   specs:
-    friendly-attributes (0.7.2)
+    friendly-attributes (0.7.3)
       activerecord (~> 2.3.18)
       ihoka-friendly (~> 0.7.0)
-      memcached (~> 0.20.1)
+      memcached (~> 1.7.2)
       yajl-ruby (~> 0.7.7)
 
 GEM
@@ -20,7 +20,7 @@ GEM
       rufus-json (~> 0.2.3)
       sequel (~> 3.16.0)
       will_paginate (~> 2.3.15)
-    memcached (0.20.1)
+    memcached (1.7.2)
     mysql (2.8.1)
     rake (10.1.0)
     rspec (2.5.0)

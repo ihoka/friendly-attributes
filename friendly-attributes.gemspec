@@ -15,12 +15,13 @@ Gem::Specification.new do |s|
   s.summary     = %q{Extend ActiveRecord models using Friendly ORM delegate models}
   s.version     = File.read(File.dirname(__FILE__) + '/VERSION')
 
-  s.add_development_dependency 'mysql', '~> 2.9.1'
+  s.add_development_dependency 'mysql2', '~> 0.3.15'
   s.add_development_dependency 'rspec', '~> 2.5.0'
   s.add_development_dependency 'database_cleaner', '~> 1.2.0'
   s.add_dependency 'ihoka-friendly', '~> 0.7.1.2'
   s.add_dependency 'activerecord', '~> 2.3.18'
-  s.add_dependency 'yajl-ruby', '~> 0.7.7'
+  s.add_dependency 'activerecord-mysql2-adapter', '~> 0.0.3'
+  s.add_dependency 'yajl-ruby', '~> 1.2.0'
   s.add_dependency 'memcached', '~> 1.7.2'
   
   s.files         = `git ls-files`.split("\n")

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    friendly-attributes (0.7.3)
+    friendly-attributes (0.8.0.pre)
       activerecord (~> 2.3.18)
       activerecord-mysql2-adapter (~> 0.0.3)
       ihoka-friendly (~> 0.8.0.pre)

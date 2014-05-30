@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |s|
   s.name = %q{friendly-attributes}
-  s.version = "0.7.3"
+  s.version = "0.8.0.pre"
 
   s.authors     = ["Istvan Hoka"]
   s.date        = %q{2013-12-12}

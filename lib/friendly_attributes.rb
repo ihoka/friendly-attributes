@@ -1,3 +1,4 @@
+require 'sequel'
 require 'friendly'
 require 'active_record'
 

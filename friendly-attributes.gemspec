@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'mysql2', '~> 0.3.15'
   s.add_development_dependency 'rspec', '~> 2.5.0'
   s.add_development_dependency 'database_cleaner', '~> 1.2.0'
-  s.add_dependency 'ihoka-friendly', '~> 0.7.1.2'
+  s.add_dependency 'ihoka-friendly', '~> 0.8.0.pre'
   s.add_dependency 'activerecord', '~> 2.3.18'
   s.add_dependency 'activerecord-mysql2-adapter', '~> 0.0.3'
   s.add_dependency 'yajl-ruby', '~> 1.2.0'
